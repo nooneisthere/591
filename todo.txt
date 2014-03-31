@@ -1,0 +1,1 @@
+改数据库，管理员密码,改config里的encryption_key,email配置

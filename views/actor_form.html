@@ -1,0 +1,109 @@
+﻿<div class='row formCon'>
+ <div class='twelve'>
+    <h5>一些可以帮我们更了解您的问题，这些资料将会在客户挑中您或者我们向客户推荐您的时候用到，请如实填写：</h5>
+    <div class='row panel'>
+      <form method="POST" id="form_actor" action="<?=$this->config->item('url_actor_submit')?>">
+		<div class='row'>
+		<div class='three columns'>
+		<label class='right inline'>您的报价方案 * :
+		</div>
+		<div class='nine columns'>
+		 <textarea style='height:100px;' name="pricing_content"></textarea>		 
+		</div>
+		</div>
+		<div class='row'>
+		<div class='three columns'>
+		<label class='right inline'>您擅长的性别和年龄段 * :
+		</div>
+		<div class='nine columns'id="ages_gender">
+		 <table width='100%'>
+		   <tr>
+		     <td width='50%'>
+		     	<label><input type='checkbox' name="ages_gender[]" value="1," /> <?=$ages_item[1]?> </label>
+			 </td>
+			 <td></td>
+		   </tr>
+		
+		 	<?php foreach ($ages_item as $akey => $atext): ?>
+		 	<?php if ($akey == 1) continue ;?>
+		   <tr>
+		   	<?php foreach ($gender_item as $gkey => $gtext): ?>
+		     <td>
+		     	<label><input type='checkbox' name="ages_gender[]" value="<?=$akey?>,<?=$gkey?>" /> <?=$atext?> <?=$gtext?> </label>
+			 </td>
+			<?php endforeach; ?>
+		   </tr>
+		   <?php endforeach; ?>
+		 </table>
+		 <div data-alert class="alert-box warning" id="ages_gender_alert">
+		    您最多可以选择两个选项。
+		 </div>
+		</div>
+		</div>
+		<div class='row'>
+		<div class='three columns'>
+		<label class='right inline'>语种 :
+		</div>
+		<div class='nine columns'>
+		  <table width='100%'>
+		   <tr>
+		     <td width='50%'>
+		     	<label><input type='checkbox' name="language1" value="cn" checked /> 中文普通话 </label>
+		     </td>
+		     <td width='50%'>
+		     	<label><input type='checkbox' name="language2" value="eng" /> 英语 </label>
+		     </td>
+		   <tr>
+		  </table>	  
+		</div>
+		<div class='nine columns'>
+			<input type="text" name="language_other" placeholder="如果您擅长其他语言或者方言，可在此填入">
+		</div>
+		</div>
+		<div class='row'>
+		<div class='three columns'>
+		<label class='right inline'>您的工作时间 * :
+		</div>
+		<div class='nine columns'>
+		 <textarea style='height:100px;' name="work_time"></textarea>
+		</div>
+		</div>
+		<div class='row'>
+		<div class='twelve text-center'>
+		  <button type='submit' class='button radius btLarge centered'>完成</button>
+		</div>
+		</div>
+      </form>
+    </div>
+ </div>
+</div>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+	var enableGender = function() {
+	    var count = $('#ages_gender input:checked').size();
+	    if( count >= 2 ){
+	        $('#ages_gender input').each(function(){
+	            if( !$(this).is(':checked') ){
+	                $(this).prop('disabled', true);
+	                $('#ages_gender_alert').show();
+	            }
+	        });
+	    } else {
+	        $('#ages_gender input').each(function(){
+	            $(this).prop('disabled', false);
+	            $('#ages_gender_alert').hide();
+	        });
+	    }
+	}
+	$( '#ages_gender input' ).change(function(){
+	    enableGender();
+	});	
+	enableGender();
+    
+	$("#form_actor").validate();
+    
+    });        
+	
+</script>            
