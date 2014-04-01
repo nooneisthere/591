@@ -12,9 +12,7 @@
 $config['url_login'] ='/auth/login';
 $config['url_user_type'] ='/auth/choose';
 $config['url_actor_form'] ='/auth/actor';
-$config['url_actor_submit'] ='/auth/create_actor';
 $config['url_project_form'] ='/auth/project';
-$config['url_project_submit'] ='/auth/create_project';
 $config['url_login'] ='/auth/login';
 $config['url_login'] ='/auth/login';
 $config['url_login'] ='/auth/login';
