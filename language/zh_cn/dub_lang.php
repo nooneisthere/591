@@ -29,6 +29,11 @@ $lang['gender_item']= array(
 	'f' => '女'
 );
 
+$lang['lang_item']= array(	
+	'cn' => '普通话',	
+	'en' => '英语'
+);
+
 
 /* End of file dub_lang.php */
 /* Location: ./system/language/chinesesimplified/db_lang.php */

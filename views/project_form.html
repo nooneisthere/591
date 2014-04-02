@@ -1,110 +1,116 @@
-﻿<div class="row formCon">
+<div class="row formCon">
  <div class="twelve">
     <h4>上传文案</h4>
-    <h5 class="cOrange underLine">工作流程</h5>
+    <!-- h5 class="cOrange underLine">工作流程</h5 -->
     <div class="row panel uploadStep">
-      <img src="images/uploadStep.png" alt="工作流程" />
+      <img src="/images/uploadStep.png" alt="工作流程" />
     </div>
     <div class="row panel">
-      <form>
-             <div class="row">
-               <div class="three columns">
-                <label class="right inline">文案名称 * :
-               </div>
-               <div class="nine columns">
-                <input type="text" />
-                <small class="error">请填入正确的文件名称.</small>
-               </div>
-             </div>
-             <div class="row">
-               <div class="three columns">
-                <label class="right inline">配音的年龄和性别 * :
-               </div>
-               <div class="nine columns">
-                <select>
-                  <option>青壮年(20-39)女</option>
-                  <option>儿童(3-12)男</option>
+      <form method="POST">
+         <div class="row">
+           <div class="three columns">
+            <label class="right inline">文案名称 * :
+           </div>
+           <div class="nine columns">
+            <input type="text" name="title" maxlength="50" required="required"  autofocus="autofocus" />
+           </div>
+         </div>
+         <div class="row">
+           <div class="three columns">
+            <label class="right inline">配音的年龄和性别 * :
+           </div>
+           <div class="nine columns">
+            <select name="ages_gender" required="required">
+            	<option value="">请选择</option>
+							<option  value="1" /><?=$ages_item[1]?></option>
+							<?php foreach ($ages_item as $akey => $atext): ?>
+								<?php if ($akey == 1) continue ;?>
+								<?php foreach ($gender_item as $gkey => $gtext): ?>
+							<option  value="<?=$akey?>,<?=$gkey?>" /> <?=$atext?> <?=$gtext?> </option>
+								<?php endforeach; ?>
+							<?php endforeach; ?>
+            </select>
+           </div>
+         </div>
+         <div class="row">
+           <div class="three columns">
+            <label class="right inline">语种 :
+           </div>
+           <div class="nine columns">
+            <div class="row">
+              <div class="six columns">
+                <select name="language">
+							   	<?php foreach ($lang_item as $gkey => $gtext): ?>
+							    <option  value="<?=$gkey?>" /> <?=$gtext?> </option>
+								<?php endforeach; ?>
                 </select>
+              </div>
+            </div>
+           </div>
+         </div>
+         <div class="row">
+           <div class="three columns">
+            <label class="right inline">文案内容 * :
+           </div>
+           <div class="nine columns">
+             <textarea style="height:250px;" name="content" required="required"></textarea>
+           </div>
+         </div>
+         <div class="row">
+           <div class="three columns">
+            <label class="right inline" style="line-height:22px;">备注 * :
+           </div>
+           <div class="nine columns">
+             <div class="uploadPs">
+               <p>提供更多的信息，这将有助于我们的导演和配音师了解你要达到的效果。</p>
+               <div class="row">
+                  <p class="one columns">例如:</p>
+                  <p class="eleven columns">你想要什么样的情绪？<br/>你的听众或观众是什么人群？</br>有用的参考视频或音频的链接？</p>
                </div>
              </div>
-             <div class="row">
-               <div class="three columns">
-                <label class="right inline">语种 :
-               </div>
-               <div class="nine columns">
-                <div class="row">
-                  <div class="six columns">
-                    <select>
-                       <option>中文</option>
-                    </select>
-                  </div>
-                </div>
-               </div>
+             <textarea style="height:200px;"  name="remarks" required="required"></textarea>
+           </div>
+         </div>
+         <div class="row">
+           <div class="three columns">
+            <label class="right inline">是否需要配乐或音效 * :
+           </div>
+           <div class="nine columns">
+             <label class="specialLabel1"><input type="radio" name="need_music" value="1" /> 需要</label>
+             <label class="specialLabel1"><input type="radio" name="need_music" value="0" checked="checked" /> 不需要</label>
+           </div>
+         </div>
+         <div class="row">
+           <div class="three columns">
+            <label class="right inline">选择配音模式 * :
+           </div>
+           <div class="nine columns">
+             <label class="specialLabel2"><input type="radio" name="type" value="ks" /> 快速获得配音: <span>我们为您挑选最合适的配音师。</span></label>
+             <label class="specialLabel3"><input type="radio" name="type" value="st"/> 试听样音: <span>通过试听网站样音来选择配音师。</span></label>
+             <p class="specialLabel3">
+             	<label style="display:inline;"><input type="radio" name="type" value="jb" />
+              配音文案竞标: <span>通过配音竞标来选择配音师。</span></label>
+              <select name="actor_count" style="display:inline; width:60px;">
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+              位
+             </p>
+             <div class="uploadPs">
+               <p><a href="#">如果您有特别的要求或者其它方案，请与我们联系</a></p>
              </div>
-             <div class="row">
-               <div class="three columns">
-                <label class="right inline">文案内容 * :
-               </div>
-               <div class="nine columns">
-                 <textarea style="height:250px;"></textarea>
-                 <small class="error">此内容不能为空.</small>
-               </div>
-             </div>
-             <div class="row">
-               <div class="three columns">
-                <label class="right inline" style="line-height:22px;">备注 * :
-               </div>
-               <div class="nine columns">
-                 <div class="uploadPs">
-                   <p>提供更多的信息，这将有助于我们的导演和配音师了解你要达到的效果。</p>
-                   <div class="row">
-                      <p class="one columns">例如:</p> 
-                      <p class="eleven columns">你想要什么样的情绪？<br/>你的听众或观众是什么人群？</br>有用的参考视频或音频的链接？</p>
-                   </div>
-                 </div>
-                 <textarea style="height:200px;"></textarea>
-               </div>
-             </div>
-             <div class="row">
-               <div class="three columns">
-                <label class="right inline">是否需要配乐或音效 * :
-               </div>
-               <div class="nine columns">
-                 <label class="specialLabel1"><input type="radio" name="peiyue" /> 需要</label>
-                 <label class="specialLabel1"><input type="radio" name="peiyue" /> 不需要</label>
-               </div>
-             </div>
-             <div class="row">
-               <div class="three columns">
-                <label class="right inline">选择配音模式 * :
-               </div>
-               <div class="nine columns">
-                 <label class="specialLabel2"><input type="radio" name="moshi" /> 快速获得配音: <span>我们为您挑选最合适的配音师。</span></label>
-                 <label class="specialLabel3"><input type="radio" name="moshi" /> 试听样音: <span>通过试听网站样音来选择配音师。</span></label>
-                 <p class="specialLabel3"><input type="radio" name="moshi" />
-                  <label style="display:inline;">配音文案竞标: <span>通过配音竞标来选择配音师。</span></label>
-                  <select style="display:inline; width:60px;">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                  </select>
-                  位
-                 </p>
-                 <div class="uploadPs">
-                   <p><a href="#">如果您有特别的要求或者其它方案，请与我们联系</a></p>
-                 </div>
-               </div>
-             </div>
-             <br/><br/>
-             <div class="row">
-                <div class="twelve text-center">
-                  <button type="submit" class="button radius btLarge centered" style="width:400px;">完成</button>
-                </div>
-             </div>
+           </div>
+         </div>
+         <br/><br/>
+         <div class="row">
+            <div class="twelve text-center">
+              <button type="submit" class="button radius btLarge centered" style="width:400px;">完成</button>
+            </div>
+         </div>
       </form>
 
     </div>
  </div>
 </div>
-

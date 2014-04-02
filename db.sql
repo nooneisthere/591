@@ -1,4 +1,4 @@
-﻿DROP TABLE IF EXISTS `groups`;
+DROP TABLE IF EXISTS `groups`;
 
 #
 # Table structure for table 'groups'
@@ -103,11 +103,11 @@ CREATE TABLE `project` (
 
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(200) NOT NULL,
-  `gender` char(1) NOT NULL,
+  `gender` char(1) ,
   `ages` tinyint(2) NOT NULL,
   `language` char(5) NOT NULL,
   `content` text,
-  `Remarks` text ,  
+  `remarks` text ,  
   `need_music` tinyint(1) NOT NULL DEFAULT 0,
   `type` char(2),
   `actor_count` tinyint(2) NOT NULL DEFAULT 0,
@@ -122,9 +122,9 @@ CREATE TABLE `project` (
 DROP TABLE IF EXISTS `actor`;
 CREATE TABLE `actor` (
   `user_id` int(11) unsigned NOT NULL ,
-  `gender1` char(1) NOT NULL,
+  `gender1` char(1) ,
   `ages1` tinyint(2) NOT NULL,
-  `gender2` char(1) NOT NULL,
+  `gender2` char(1) ,
   `ages2` tinyint(2) NOT NULL,
   `language1` char(5) NOT NULL,
   `language2` char(5) NOT NULL,
@@ -150,7 +150,7 @@ CREATE TABLE `sample` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(200) NOT NULL,
   `type` char(2),
-  `gender` char(1) NOT NULL,
+  `gender` char(1) ,
   `ages` tinyint(2) NOT NULL,
   `language` char(5) NOT NULL,
   `emotion` char(10) NOT NULL,    

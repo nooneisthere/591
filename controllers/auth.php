@@ -20,7 +20,7 @@ class Auth extends CI_Controller {
 		$this->lang->load('auth');
 		$this->load->helper('language');
 		$this->lang->load('dub');
-//$this->output->enable_profiler(TRUE);
+$this->output->enable_profiler(TRUE);
 	}
 
 	//redirect if needed, otherwise display the user list
@@ -799,7 +799,7 @@ function create_actor()
 		//redirect them to the login page
 		redirect($this->config->item('url_login'), 'refresh');
 	}
-$this->form_validation->set_rules('pricing_content', 'Password', 'required|xss_clean');
+$this->form_validation->set_rules('pricing_content', 'pricing_content', 'required|xss_clean');
 $this->form_validation->set_rules('work_time', 'work_time', 'required|xss_clean');
 $this->form_validation->set_rules('ages_gender', 'ages_gender', 'required|xss_clean');
 $this->form_validation->set_rules('language_other', 'language_other', 'xss_clean');
@@ -816,6 +816,51 @@ if (isset($_POST) && !empty($_POST)) $actor_data = $_POST;
 		$this->db->insert_or_update('actor', $actor_data,$where_data);
 		$this->data['message'] =  'successful';
 	}else{
+		$this->data['message'] =  validation_errors();
+		
+	}	
+
+
+}
+
+function project($project_id=0)
+{
+	if (!$this->ion_auth->logged_in())
+	{
+		//redirect them to the login page
+		//redirect($this->config->item('url_login'), 'refresh');
+	}
+	$project_rules = array(
+		'title'=>'required',
+		'ages_gender'=>'required',
+		'language'=>'required',
+		'content'=>'required',
+		'remarks'=>'required',
+		'type'=>'required',	
+	);
+	foreach ($project_rules as $cname => $crule){
+		$this->form_validation->set_rules($cname, $cname, $crule.'|xss_clean');		
+	}
+	
+	if (isset($_POST) && !empty($_POST)) $insert_data = $_POST;
+	if ($this->form_validation->run() == TRUE)
+	{
+		
+		if ($project_id) $where_data['id'] = $project_id ;
+		$where_data['user_id'] = $this->ion_auth->get_user_id();
+				
+		list($insert_data['ages'] , $insert_data['gender']) = explode(',',$insert_data['ages_gender']);			
+		
+		$insert_data = $this->ion_auth->_filter_data('project', $insert_data);		
+		print_r($insert_data);
+		$this->db->insert_or_update('project', $insert_data,$where_data);
+		$this->data['message'] =  'successful';
+	}else{
+	    $this->data['title'] = "Project";
+	    $this->data['ages_item'] = $this->lang->line('ages_item');
+	    $this->data['lang_item'] = $this->lang->line('lang_item');
+	    $this->data['gender_item'] = $this->lang->line('gender_item');		
+		$this->_render_page('project_form.html', $this->data);
 		$this->data['message'] =  validation_errors();
 		
 	}	
