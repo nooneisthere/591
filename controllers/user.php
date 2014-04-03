@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Auth extends CI_Controller {
+class User extends CI_Controller {
 
 	function __construct()
 	{
@@ -213,6 +213,7 @@ echo $this->form_validation->run();
 			//set any errors and display the form
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 			$this->_render_page('auth/forgot_password', $this->data);
+			$this->_render_page('forgot_password.html');
 		}
 		else
 		{
@@ -744,11 +745,12 @@ $this->ion_auth->login($email, $password);
 
 	function _render_page($view, $data=null, $render=false)
 	{
-
-		$this->viewdata = (empty($data)) ? $this->data: $data;
-$this->load->view('header.html');
-		$view_html = $this->load->view($view, $this->viewdata, $render);
-$this->load->view('footer.html');
+		if (empty($data)){
+			$data = isset($this->data) ? $this->data : array();
+		}
+		$this->load->view('header.html');
+		$view_html = $this->load->view($view, $data, $render);
+		$this->load->view('footer.html');
 		if (!$render) return $view_html;
 	}
 //activate the user
@@ -866,6 +868,16 @@ function project($project_id=0)
 	}	
 
 
+}
+
+function front()
+{
+	$this->_render_page('front.html');
+}
+
+function dashboard()
+{
+	$this->_render_page('dashboard_user.html');
 }
 
 
