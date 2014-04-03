@@ -1,72 +1,102 @@
-﻿<div class='row formCon'>
- <div class='twelve'>
+<div class="row formCon">
+ <div class="twelve">
     <dl class="tabs">
       <dd><a href="#signUp">注册</a></dd>
       <dd class="active"><a href="#login">登录</a></dd>
     </dl>
     <ul class="tabs-content">
+      <li class="active" id="loginTab">
+        <form id="form_login" action="" method="post">
+         <div class="panel">
+           <div class="row">
+             <div class="three columns">
+              <label class="right inline">电子邮箱 * :
+             </div>
+             <div class="nine columns">
+               <input type="email" required="required" name="identity" autocomplete="on">
+             </div>
+           </div>
+           <div class="row">
+             <div class="three columns">
+              <label class="right inline">密码 * :
+             </div>
+             <div class="nine columns">
+               <input type="password" required="required" name="password" >
+             </div>
+           </div>
+         </div>
+         <div class="row">
+          <div class="twelve text-center">
+            <button type="submit" class="button radius btLarge centered">登入</button>
+            <br/><br/>
+            <a href="<?=$this->config->item('url_forgot_password')?>" style="margin-top:10px;margin-left:10px;">忘记密码?</a>
+          </div>
+         </div>
+         </form>
+      </li>
+
       <li id="signUpTab">
-        <form id="form_signup" action="<?=$this->config->item('url_create_actor')?>" method="post">
-        <div class='panel'>        
-             <div class='row'>
-               <div class='three columns'>
-                <label class='right inline'>电子邮箱 * :
+        <form id="form_signup" action="<?=$this->config->item("url_create_actor")?>" method="post">
+        <div class="panel">
+             <div class="row">
+               <div class="three columns">
+                <label class="right inline">电子邮箱 * :
                </div>
-               <div class='nine columns'>
-                 <input type="email" required name="email">                 
-               </div>
-             </div>
-             <div class='row'>
-               <div class='three columns'>
-                <label  class='right inline'>密码 * :
-               </div>
-               <div class='nine columns'>
-                 <input type="password" required name="password">
+               <div class="nine columns">
+                 <input type="email" required="required" name="email" autofocus="autofocus">
                </div>
              </div>
-             <div class='row'>
-               <div class='three columns'>
-                <label class='right inline'>QQ * :
+             <div class="row">
+               <div class="three columns">
+                <label  class="right inline">密码 * :
                </div>
-               <div class='nine columns'>
-                 <input type="text" required name="qq">
-               </div>
-             </div>
-             <div class='row'>
-               <div class='three columns'>
-                <label class='right inline'>个人名称 * : <small></small>
-               </div>
-               <div class='nine columns'>
-                 <input type="text" required name="first_name">
+               <div class="nine columns">
+                 <input type="password" required="required" name="password">
                </div>
              </div>
-             <div class='row'>
-               <div class='three columns'>
-                <label class='right inline'>公司名称 : <small></small>
+             <div class="row">
+               <div class="three columns">
+                <label class="right inline">QQ * :
                </div>
-               <div class='nine columns'>
+               <div class="nine columns">
+                 <input type="text" required="required" name="qq">
+               </div>
+             </div>
+             <div class="row">
+               <div class="three columns">
+                <label class="right inline">个人名称 * :
+               </div>
+               <div class="nine columns">
+                 <input type="text" required="required" name="first_name">
+               </div>
+             </div>
+             <div class="row">
+               <div class="three columns">
+                <label class="right inline">公司名称 :
+               </div>
+               <div class="nine columns">
                  <input type="text" name="company">
                </div>
-             </div>             
-             <div class='row'>
-               <div class='three columns'>
-                <label class='right inline'>电话 : <small></small>
+             </div>
+             <div class="row">
+               <div class="three columns">
+                <label class="right inline">电话 :
                </div>
-               <div class='nine columns'>
+               <div class="nine columns">
                  <input type="text"  name="phone">
                </div>
-             </div>           
-         </div>         
-         <div class='row'>
-            <div class='twelve text-center'>
-              <button type='submit' class='button radius btLarge centered'>注册</button>
+             </div>
+         </div>
+         <div class="row">
+            <div class="twelve text-center">
+              <button type="submit" class="button radius btLarge centered">注册</button>
             </div>
         </div>
         </form>
-        <div class='row'>            
-            <div calss='twelve'>
+        <div class="row">
+            <div calss="twelve">
               <i>点击注册代表您已阅读并且同意以下的协议</i>
-              <div class='signUpTerms'>
+              <div class="signUpTerms">
                <p>
 	<strong>一、总则</strong><br />
 <br />
@@ -282,50 +312,11 @@
 8.5 本服务协议内容包括协议正文及所有591配已经发布的或将来可能发布的各类规则。所有规则为协议不可分割的一部分，与协议正文具有同等法律效力。
 </p>
 
-                              
-                            
+
                </div>
             </div>
          </div>
       </li>
-      <li class="active" id="loginTab">
-        <form id="form_login" action="" method="post">
-         <div class='panel'>               
-             <div class='row'>
-               <div class='three columns'>
-                <label class='right inline'>电子邮箱 * :
-               </div>
-               <div class='nine columns'>
-                 <input type="email" required name="identity" autocomplete="on">
-               </div>
-             </div>
-             <div class='row'>
-               <div class='three columns'>
-                <label class='right inline'>密码 * :
-               </div>
-               <div class='nine columns'>
-                 <input type="password" required name="password">
-                 <small class="error">需要填入正确的密码.</small>
-               </div>
-             </div>               
-         </div>
-         <div class='row'>
-            <div class='twelve text-center'>
-              <button type='submit' class='button radius btLarge centered'>登入</button>
-              <br/><br/>
-              <a href='#' style='margin-top:10px;margin-left:10px;'>忘记密码?</a>
-            </div>
-         </div>
-         </form>
-      </li>         
     </ul>
  </div>
 </div>
-
-<script>        
-    $(document).ready(function() {
-    	$("#form_login").validate();
-    
-    });        
-</script>
-

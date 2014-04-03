@@ -9,13 +9,14 @@
 |
 */
 
-$config['url_login'] ='/auth/login';
-$config['url_user_type'] ='/auth/choose';
-$config['url_actor_form'] ='/auth/actor';
-$config['url_project_form'] ='/auth/project';
-$config['url_login'] ='/auth/login';
-$config['url_login'] ='/auth/login';
-$config['url_login'] ='/auth/login';
+$config['url_login'] ='/user/login';
+$config['url_user_type'] ='/user/choose';
+$config['url_create_actor'] ='/user/actor';
+$config['url_create_project'] ='/user/project';
+$config['url_forgot_password'] ='/user/forgot_password';
+$config['url_user_dashboard'] ='/user/dashboard';
+$config['url_login'] ='/user/login';
+$config['url_login'] ='/user/login';
 	
 
 /* End of file ion_auth.php */

@@ -212,7 +212,6 @@ echo $this->form_validation->run();
 
 			//set any errors and display the form
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-			$this->_render_page('auth/forgot_password', $this->data);
 			$this->_render_page('forgot_password.html');
 		}
 		else
@@ -763,12 +762,12 @@ function choose()
     #$this->load->view('choose.html');
     #echo "here";
     //$this->_render_page('signup_actor.html' , $this->data);
-    //var_dump($this->lang->line('ages_item'));    
+    //var_dump($this->lang->line('ages_item'));
 }
 
 function actor()
 {
-	
+
 	$this->load->library('email');
 $this->load->config('email');
 $this->email->from('23398899@qq.com', '??????');
@@ -781,13 +780,13 @@ if($this->email->send()){
 }else{
         echo "fail";
 }
-	
+
     $this->data['title'] = "Detail";
     $this->data['ages_item'] = $this->lang->line('ages_item');
     $this->data['gender_item'] = $this->lang->line('gender_item');
     //$this->_render_page('login-choose.html' , $this->data);
     $this->_render_page('create_actor.html' , $this->data);
-    //var_dump($this->lang->line('ages_item'));    
+    //var_dump($this->lang->line('ages_item'));
 
 
 
@@ -814,13 +813,13 @@ if (isset($_POST) && !empty($_POST)) $actor_data = $_POST;
 			list($actor_data['ages'.$i] , $actor_data['gender'.$i]) = explode(',',$ages_gender);
 			$i ++;
 		}
-		$actor_data = $this->ion_auth->_filter_data('actor', $actor_data);		
+		$actor_data = $this->ion_auth->_filter_data('actor', $actor_data);
 		$this->db->insert_or_update('actor', $actor_data,$where_data);
 		$this->data['message'] =  'successful';
 	}else{
 		$this->data['message'] =  validation_errors();
-		
-	}	
+
+	}
 
 
 }
@@ -838,22 +837,22 @@ function project($project_id=0)
 		'language'=>'required',
 		'content'=>'required',
 		'remarks'=>'required',
-		'type'=>'required',	
+		'type'=>'required',
 	);
 	foreach ($project_rules as $cname => $crule){
-		$this->form_validation->set_rules($cname, $cname, $crule.'|xss_clean');		
+		$this->form_validation->set_rules($cname, $cname, $crule.'|xss_clean');
 	}
-	
+
 	if (isset($_POST) && !empty($_POST)) $insert_data = $_POST;
 	if ($this->form_validation->run() == TRUE)
 	{
-		
+
 		if ($project_id) $where_data['id'] = $project_id ;
 		$where_data['user_id'] = $this->ion_auth->get_user_id();
-				
-		list($insert_data['ages'] , $insert_data['gender']) = explode(',',$insert_data['ages_gender']);			
-		
-		$insert_data = $this->ion_auth->_filter_data('project', $insert_data);		
+
+		list($insert_data['ages'] , $insert_data['gender']) = explode(',',$insert_data['ages_gender']);
+
+		$insert_data = $this->ion_auth->_filter_data('project', $insert_data);
 		print_r($insert_data);
 		$this->db->insert_or_update('project', $insert_data,$where_data);
 		$this->data['message'] =  'successful';
@@ -861,11 +860,11 @@ function project($project_id=0)
 	    $this->data['title'] = "Project";
 	    $this->data['ages_item'] = $this->lang->line('ages_item');
 	    $this->data['lang_item'] = $this->lang->line('lang_item');
-	    $this->data['gender_item'] = $this->lang->line('gender_item');		
+	    $this->data['gender_item'] = $this->lang->line('gender_item');
 		$this->_render_page('project_form.html', $this->data);
 		$this->data['message'] =  validation_errors();
-		
-	}	
+
+	}
 
 
 }
