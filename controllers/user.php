@@ -741,9 +741,8 @@ $this->ion_auth->login($email, $password);
 		if (empty($data)){
 			$data = isset($this->data) ? $this->data : array();
 		}	
-		$data['lang'] = $this->lang->load('dub',null,TRUE);
-		echo 'eeee';
-		print_r($this->lang->load('dub',null,TRUE));
+		$data['lang'] = $this->lang->load('dub',null,TRUE);		
+		//print_r($this->lang->load('dub',null,TRUE));
 		$this->load->view('header.html');
 		$view_html = $this->load->view($view, $data, $render);
 		$this->load->view('footer.html');
