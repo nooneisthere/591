@@ -29,9 +29,21 @@ $lang['gender_item']= array(
 	'f' => '女'
 );
 
-$lang['lang_item']= array(	
+$lang['lang_item']= array(
 	'cn' => '普通话',	
 	'en' => '英语'
+);
+
+$lang['project_type']= array(
+	'jb' => '竞配',	
+	'st' => '试听',
+	'sp' => '速配',
+);
+
+$lang['project_status']= array(
+	'0' => '待审核',	
+	'1' => '已发布',
+	'2' => '已完成',
 );
 
 

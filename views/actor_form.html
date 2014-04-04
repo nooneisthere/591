@@ -19,15 +19,15 @@
 		 <table width='100%'>
 		   <tr>
 		     <td width='50%'>
-		     	<label><input type='checkbox' name="ages_gender[]" value="1," /> <?=$ages_item[1]?> </label>
+		     	<label><input type='checkbox' name="ages_gender[]" value="1," /> <?=$lang['ages_item'][1]?> </label>
 			 </td>
 			 <td></td>
 		   </tr>
 		
-		 	<?php foreach ($ages_item as $akey => $atext): ?>
+		 	<?php foreach ($lang['ages_item'] as $akey => $atext): ?>
 		 	<?php if ($akey == 1) continue ;?>
 		   <tr>
-		   	<?php foreach ($gender_item as $gkey => $gtext): ?>
+		   	<?php foreach ($lang['gender_item'] as $gkey => $gtext): ?>
 		     <td>
 		     	<label><input type='checkbox' name="ages_gender[]" value="<?=$akey?>,<?=$gkey?>" /> <?=$atext?> <?=$gtext?> </label>
 			 </td>
@@ -48,10 +48,10 @@
 		  <table width='100%'>
 		   <tr>
 		     <td width='50%'>
-		     	<label><input type='checkbox' name="language1" value="cn" checked /> <?=$lang_item['cn']?> </label>
+		     	<label><input type='checkbox' name="language1" value="cn" checked /> <?=$lang['lang_item']['cn']?> </label>
 		     </td>
 		     <td width='50%'>
-		     	<label><input type='checkbox' name="language2" value="en" /> <?=$lang_item['en']?> </label>
+		     	<label><input type='checkbox' name="language2" value="en" /> <?=$lang['lang_item']['en']?> </label>
 		     </td>
 		   <tr>
 		  </table>	  
@@ -100,9 +100,7 @@ $(document).ready(function() {
 	$( '#ages_gender input' ).change(function(){
 	    enableGender();
 	});	
-	enableGender();
-    
-	$("#form_actor").validate();
+	enableGender();    
     
     });        
 	

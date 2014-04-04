@@ -5,21 +5,15 @@ class User extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->library('ion_auth');
-		$this->load->library('form_validation');
 		$this->load->helper('url');
 
 		// Load MongoDB library instead of native db driver if required
 		$this->config->item('use_mongodb', 'ion_auth') ?
 		$this->load->library('mongo_db') :
-
+		$this->lang->load('auth');
 		$this->load->database();
 
 		$this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
-
-		$this->lang->load('auth');
-		$this->load->helper('language');
-		$this->lang->load('dub');
 $this->output->enable_profiler(TRUE);
 	}
 
@@ -746,7 +740,10 @@ $this->ion_auth->login($email, $password);
 	{
 		if (empty($data)){
 			$data = isset($this->data) ? $this->data : array();
-		}
+		}	
+		$data['lang'] = $this->lang->load('dub',null,TRUE);
+		echo 'eeee';
+		print_r($this->lang->load('dub',null,TRUE));
 		$this->load->view('header.html');
 		$view_html = $this->load->view($view, $data, $render);
 		$this->load->view('footer.html');
@@ -755,14 +752,12 @@ $this->ion_auth->login($email, $password);
 //activate the user
 function choose()
 {
-    $this->data['title'] = "Choose";
-    $this->data['ages_item'] = $this->lang->line('ages_item');
-    $this->data['gender_item'] = $this->lang->line('gender_item');
-    $this->_render_page('choose.html' , $this->data);
+    $this->_render_page('choose.html');
     #$this->load->view('choose.html');
     #echo "here";
     //$this->_render_page('signup_actor.html' , $this->data);
-    //var_dump($this->lang->line('ages_item'));
+    //print_r($this->lang->line('ages_item'));
+    //print_r($this->lang);
 }
 
 function actor()
@@ -781,9 +776,6 @@ if($this->email->send()){
         echo "fail";
 }
 
-    $this->data['title'] = "Detail";
-    $this->data['ages_item'] = $this->lang->line('ages_item');
-    $this->data['gender_item'] = $this->lang->line('gender_item');
     //$this->_render_page('login-choose.html' , $this->data);
     $this->_render_page('create_actor.html' , $this->data);
     //var_dump($this->lang->line('ages_item'));
@@ -858,9 +850,6 @@ function project($project_id=0)
 		$this->data['message'] =  'successful';
 	}else{
 	    $this->data['title'] = "Project";
-	    $this->data['ages_item'] = $this->lang->line('ages_item');
-	    $this->data['lang_item'] = $this->lang->line('lang_item');
-	    $this->data['gender_item'] = $this->lang->line('gender_item');
 		$this->_render_page('project_form.html', $this->data);
 		$this->data['message'] =  validation_errors();
 
@@ -879,6 +868,10 @@ function dashboard()
 	$this->_render_page('dashboard_user.html');
 }
 
+function test()
+{
+	echo phpinfo();
+}
 
 }
 
