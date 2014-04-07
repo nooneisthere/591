@@ -839,15 +839,26 @@ function project($project_id=0)
 	if ($this->form_validation->run() == TRUE)
 	{
 
-		if ($project_id) $where_data['id'] = $project_id ;
-		$where_data['user_id'] = $this->ion_auth->get_user_id();
-
+		$insert_data['session_id'] = $this->session->userdata('session_id');
 		list($insert_data['ages'] , $insert_data['gender']) = explode(',',$insert_data['ages_gender']);
 
 		$insert_data = $this->ion_auth->_filter_data('project', $insert_data);
-		print_r($insert_data);
-		$this->db->insert_or_update('project', $insert_data,$where_data);
+		$where_data['user_id'] = $this->ion_auth->get_user_id();
+		if ($project_id) {
+			$where_data['id'] = $project_id;
+			$this->db->update('project', $insert_data,$where_data);
+		}else{
+			$this->db->insert('project', array_merge($insert_data,$where_data));
+		}
+
 		$this->data['message'] =  'successful';
+
+		if (!$this->ion_auth->logged_in()){
+
+			redirect($this->config->item('url_login'), 'refresh');
+		}else{
+			redirect($this->config->item('url_user_dashboard'), 'refresh');
+		}
 	}else{
 	    $this->data['title'] = "Project";
 		$this->_render_page('project_form.html', $this->data);
@@ -867,14 +878,21 @@ function dashboard()
 {
 	if (!$this->ion_auth->logged_in()){
 		redirect($this->config->item('url_login'), 'refresh');
-	}else{
-		$this->_render_page('dashboard_user.html');
 	}
+
+	$this->data['projects'] = $projects = $this->db->where('user_id',
+		$this->ion_auth->get_user_id())->get('project')->result();
+	print_r($this->data['projects']);
+	$this->_render_page('dashboard_user.html');
 }
 
 function test()
 {
-	echo phpinfo();
+	print_r($this->session->all_userdata());
+		echo $this->ion_auth->get_user_id();
+		echo "  ion_auth ";
+		echo 5 || 0;
+	//echo phpinfo();
 }
 
 }

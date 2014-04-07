@@ -1,4 +1,4 @@
-﻿<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * CodeIgniter
  *
@@ -58,7 +58,7 @@ class CI_DB_active_record extends CI_DB_driver {
 	var $ar_cache_having		= array();
 	var $ar_cache_orderby		= array();
 	var $ar_cache_set			= array();
-	
+
 	var $ar_no_escape 			= array();
 	var $ar_cache_no_escape     = array();
 
@@ -426,7 +426,7 @@ class CI_DB_active_record extends CI_DB_driver {
 
 					$v = ' '.$this->escape($v);
 				}
-				
+
 				if ( ! $this->_has_operator($k))
 				{
 					$k .= ' = ';
@@ -660,7 +660,7 @@ class CI_DB_active_record extends CI_DB_driver {
 			$prefix = (count($this->ar_like) == 0) ? '' : $type;
 
 			$v = $this->escape_like_str($v);
-			
+
 			if ($side == 'none')
 			{
 				$like_statement = $prefix." $k $not LIKE '{$v}'";
@@ -2055,11 +2055,11 @@ class CI_DB_active_record extends CI_DB_driver {
 
 	public function insert_or_update($table = '', $set = NULL, $where = NULL, $limit = NULL)
 	{
-		if ( $this->get_where($table, $where, 1, 0) )				
+		if ( $this->get_where($table, $where, 1, 0)->num_rows() )
 		{
 			return $this->update($table,$set,$where, $limit) ;
 		}else{
-			return $this->insert($table,array_merge($set,$where)); 
+			return $this->insert($table,array_merge($set,$where));
 		}
 	}
 

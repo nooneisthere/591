@@ -35,7 +35,7 @@ CREATE TABLE `users` (
   `password` varchar(80) NOT NULL,
   `salt` varchar(40) DEFAULT NULL,
   `email` varchar(100) NOT NULL,
-  `qq` int(11) unsigned NOT NULL DEFAULT 0,  
+  `qq` int(11) unsigned NOT NULL DEFAULT 0,
   `activation_code` varchar(40) DEFAULT NULL,
   `forgotten_password_code` varchar(40) DEFAULT NULL,
   `forgotten_password_time` int(11) unsigned DEFAULT NULL,
@@ -100,21 +100,22 @@ CREATE TABLE `login_attempts` (
 
 DROP TABLE IF EXISTS `project`;
 CREATE TABLE `project` (
-
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(200) NOT NULL,
   `gender` char(1) ,
   `ages` tinyint(2) NOT NULL,
   `language` char(5) NOT NULL,
   `content` text,
-  `remarks` text ,  
+  `remarks` text ,
   `need_music` tinyint(1) NOT NULL DEFAULT 0,
   `type` char(2),
   `actor_count` tinyint(2) NOT NULL DEFAULT 0,
   `status` tinyint(1) NOT NULL DEFAULT 0,
-  `user_id` int(11) unsigned NOT NULL,
+  `user_id` int(11) unsigned NOT NULL DEFAULT 0,
   `price` mediumint(8) unsigned NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`),  
+  `session_id` char(32) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `session_id` (`session_id`),
   KEY `fk_users_idx` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -134,13 +135,13 @@ CREATE TABLE `actor` (
   `price1` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `price2` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `price3` mediumint(8) unsigned NOT NULL DEFAULT 0,
-  `price4` mediumint(8) unsigned NOT NULL DEFAULT 0,    
+  `price4` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `price5` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `price6` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `price7` mediumint(8) unsigned NOT NULL DEFAULT 0,
-  `price8` mediumint(8) unsigned NOT NULL DEFAULT 0,    
-  `status` tinyint(1) NOT NULL DEFAULT 0,  
-  PRIMARY KEY (`user_id`)  
+  `price8` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `status` tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -153,10 +154,10 @@ CREATE TABLE `sample` (
   `gender` char(1) ,
   `ages` tinyint(2) NOT NULL,
   `language` char(5) NOT NULL,
-  `emotion` char(10) NOT NULL,    
+  `emotion` char(10) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 0,
   `user_id` int(11) unsigned NOT NULL,
-  `rank` int(11) unsigned NOT NULL DEFAULT 0,  
+  `rank` int(11) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -165,10 +166,10 @@ CREATE TABLE `sample` (
 DROP TABLE IF EXISTS `project_actor`;
 CREATE TABLE `project_actor` (
 
-  `project_id` int(11) unsigned NOT NULL,  
+  `project_id` int(11) unsigned NOT NULL,
   `user_id` int(11) unsigned NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 0,
   `price` mediumint(8) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`project_id`,`user_id`),
-  KEY `fk_users_idx` (`user_id`)  
+  KEY `fk_users_idx` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
