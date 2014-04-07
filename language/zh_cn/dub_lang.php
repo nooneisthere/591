@@ -42,7 +42,7 @@ $lang['project_type']= array(
 
 $lang['project_status']= array(
 	'0' => '待审核',	
-	'1' => '已发布',
+	'1' => '进行中',
 	'2' => '已完成',
 );
 

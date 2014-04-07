@@ -11,6 +11,7 @@
 
 $config['url_login'] ='/user/login';
 $config['url_user_type'] ='/user/choose';
+$config['url_signup'] ='/user/signup';
 $config['url_create_actor'] ='/user/actor';
 $config['url_create_project'] ='/user/project';
 $config['url_forgot_password'] ='/user/forgot_password';

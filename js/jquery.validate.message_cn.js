@@ -10,7 +10,7 @@ jQuery.extend(jQuery.validator.messages, {
         date: "日期格式错误,请重新输入！",
         dateISO: "日期格式错误,请重新输入！",
         number: "请输入正确的数字！",
-        digits: "请输入零或正整数！",
+        digits: "请输入正确的号码！",
         creditcard: "信用卡号格式错误,请重新输入！",
         equalTo: "两次输入不一致,请重新输入！",
         accept: "请输入拥有合法后缀名的字符串！",

@@ -391,7 +391,7 @@ echo  $this->email->print_debugger();
 	}
 
 	//create a new user
-	function create_user()
+	function signup()
 	{
 		$this->data['title'] = "Create User";
 
@@ -428,7 +428,7 @@ $this->ion_auth->login($email, $password);
 			//check to see if we are creating the user
 			//redirect them back to the admin page
 			$this->session->set_flashdata('message', $this->ion_auth->messages());
-			redirect("auth/choose", 'refresh');
+			redirect($this->config->item('url_user_type'), 'refresh');
 		}
 		else
 		{
@@ -740,8 +740,8 @@ $this->ion_auth->login($email, $password);
 	{
 		if (empty($data)){
 			$data = isset($this->data) ? $this->data : array();
-		}	
-		$data['lang'] = $this->lang->load('dub',null,TRUE);		
+		}
+		$data['lang'] = $this->lang->load('dub',null,TRUE);
 		//print_r($this->lang->load('dub',null,TRUE));
 		$this->load->view('header.html');
 		$view_html = $this->load->view($view, $data, $render);
@@ -759,7 +759,7 @@ function choose()
     //print_r($this->lang);
 }
 
-function actor()
+function email()
 {
 
 	$this->load->library('email');
@@ -776,7 +776,6 @@ if($this->email->send()){
 }
 
     //$this->_render_page('login-choose.html' , $this->data);
-    $this->_render_page('create_actor.html' , $this->data);
     //var_dump($this->lang->line('ages_item'));
 
 
@@ -784,7 +783,7 @@ if($this->email->send()){
 
 }
 
-function create_actor()
+function actor()
 {
 	if (!$this->ion_auth->logged_in())
 	{
@@ -807,9 +806,10 @@ if (isset($_POST) && !empty($_POST)) $actor_data = $_POST;
 		$actor_data = $this->ion_auth->_filter_data('actor', $actor_data);
 		$this->db->insert_or_update('actor', $actor_data,$where_data);
 		$this->data['message'] =  'successful';
+		redirect($this->config->item('url_user_dashboard'), 'refresh');
 	}else{
 		$this->data['message'] =  validation_errors();
-
+    $this->_render_page('actor_form.html');
 	}
 
 
@@ -830,6 +830,7 @@ function project($project_id=0)
 		'remarks'=>'required',
 		'type'=>'required',
 	);
+
 	foreach ($project_rules as $cname => $crule){
 		$this->form_validation->set_rules($cname, $cname, $crule.'|xss_clean');
 	}
@@ -864,7 +865,11 @@ function front()
 
 function dashboard()
 {
-	$this->_render_page('dashboard_user.html');
+	if (!$this->ion_auth->logged_in()){
+		redirect($this->config->item('url_login'), 'refresh');
+	}else{
+		$this->_render_page('dashboard_user.html');
+	}
 }
 
 function test()
