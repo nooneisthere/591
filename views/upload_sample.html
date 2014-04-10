@@ -1,0 +1,32 @@
+<div class="row formCon">
+ <div class="twelve">
+  <ul class="alertList">
+   <li><i class="fa fa-dot-circle-o"></i> 请勿重复上传配音</li>
+   <li><i class="fa fa-dot-circle-o"></i> 我们的客户很少听配音超过20秒。如果您上传的配音超过20秒，审核通过时将被自动删减。</li>
+   <li><i class="fa fa-dot-circle-o"></i> 请尽量上传不同风格的配音，将他们分类到对应的区域。</li>
+   <li><i class="fa fa-dot-circle-o"></i> 配音的音频格式为MP3，采样率为44.1kHz，比特率在128Kbps以上。</li>
+   <li><i class="fa fa-dot-circle-o"></i> 上传的每个配音大小不得超过2M，总数不能超出30条.</li>
+  </ul>
+  <br><br>
+  <div class="panel">
+  	<form name="form_sample" enctype="multipart/form-data" method="POST">
+   <p class="text-center uploadBar"><a href="#" class="button radius" style="width:400px;"><i class="fa fa-plus-circle"></i> 上传新配音</a>
+   	<input type="file" class="uploadBarFile" name="userfile" required="required" onchange="document.form_sample.submit();"></p>
+   <div class="progress small success"><b class="progressNum">65% [35 secs left...]</b> <span class="meter" style="width:65%;"></span> </div>
+   	</form>
+  </div>
+  <br>
+  <h5>您的样音列表</h5>
+  <ul class="soundList">
+	<?php foreach ($samples as $sample): ?>
+   <li>
+    <div class="soundListPlayer"></div>
+    <div class="soundListInfo">
+     <h5>标题：<?=$sample->title?></h5>
+     <p class="text-right"><a href="#" class="button small alert radius"><i class="fa fa-trash-o"></i> 删除</a></p>
+    </div>
+   </li>
+	<?php endforeach;?>
+  </ul>
+ </div>
+</div>

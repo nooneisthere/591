@@ -10,6 +10,7 @@
 */
 
 $config['url_login'] ='/user/login';
+$config['url_logout'] ='/user/logout';
 $config['url_user_type'] ='/user/choose';
 $config['url_signup'] ='/user/signup';
 $config['url_create_actor'] ='/user/actor';
@@ -17,8 +18,7 @@ $config['url_create_project'] ='/user/project';
 $config['url_forgot_password'] ='/user/forgot_password';
 $config['url_user_dashboard'] ='/user/dashboard';
 $config['url_login'] ='/user/login';
-$config['url_login'] ='/user/login';
-	
+
 
 /* End of file ion_auth.php */
 /* Location: ./application/config/ion_auth.php */

@@ -106,6 +106,7 @@ CREATE TABLE `project` (
   `ages` tinyint(2) NOT NULL,
   `language` char(5) NOT NULL,
   `content` text,
+  `content_length` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `remarks` text ,
   `need_music` tinyint(1) NOT NULL DEFAULT 0,
   `type` char(2),
@@ -113,6 +114,7 @@ CREATE TABLE `project` (
   `status` tinyint(1) NOT NULL DEFAULT 0,
   `user_id` int(11) unsigned NOT NULL DEFAULT 0,
   `price` mediumint(8) unsigned NOT NULL DEFAULT 0,
+  `actor_price` mediumint(8) unsigned NOT NULL DEFAULT 0,
   `session_id` char(32) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `session_id` (`session_id`),
@@ -158,7 +160,9 @@ CREATE TABLE `sample` (
   `status` tinyint(1) NOT NULL DEFAULT 0,
   `user_id` int(11) unsigned NOT NULL,
   `rank` int(11) unsigned NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`)
+  `md5` char(32),
+  PRIMARY KEY (`id`),
+  KEY `md5` (`md5`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -173,3 +177,6 @@ CREATE TABLE `project_actor` (
   PRIMARY KEY (`project_id`,`user_id`),
   KEY `fk_users_idx` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+  alter table project add `content_length` mediumint(8) unsigned NOT NULL DEFAULT 0;

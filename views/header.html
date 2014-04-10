@@ -12,7 +12,7 @@
     <!-- Included CSS Files (Compressed) -->
     <link rel="stylesheet" href="/css/foundation.css">
     <link rel="stylesheet" href="/css/app.css">
-    <script src="/js/jquery.js"></script>    
+    <script src="/js/jquery.js"></script>
 	<script src="/js/modernizr.foundation.js"></script>
     <link rel="stylesheet" href="/css/font-awesome.min.css" />
     <link rel="stylesheet" href="/css/591.css" />
@@ -46,7 +46,13 @@
         <dd class='sepLine'></dd>
         <dd><a href="#">我的收藏</a></dd>
         <dd class='sepLine'></dd>
-        <dd class='last-child'><a href="<?=$this->config->item('url_login')?>">注册/登入</a></dd>
+        <dd class='last-child'>
+        	<?php if ($this->ion_auth->logged_in()): ?>
+        	<a href="<?=$this->config->item('url_logout')?>">退出</a>
+        	<?php else: ?>
+        	<a href="<?=$this->config->item('url_login')?>">注册/登入</a>
+        	<?php endif; ?>
+        </dd>
       </dl>
     </nav>
    </header>

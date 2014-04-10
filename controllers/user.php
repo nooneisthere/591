@@ -17,36 +17,6 @@ class User extends CI_Controller {
 $this->output->enable_profiler(TRUE);
 	}
 
-	//redirect if needed, otherwise display the user list
-	function index()
-	{
-
-		if (!$this->ion_auth->logged_in())
-		{
-			//redirect them to the login page
-			redirect($this->config->item('url_login'), 'refresh');
-		}
-		elseif (!$this->ion_auth->is_admin())
-		{
-			//redirect them to the home page because they must be an administrator to view this
-			redirect('/', 'refresh');
-		}
-		else
-		{
-			//set the flash data error message if there is one
-			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-
-			//list the users
-			$this->data['users'] = $this->ion_auth->users()->result();
-			foreach ($this->data['users'] as $k => $user)
-			{
-				$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
-			}
-
-			$this->_render_page('auth/index', $this->data);
-		}
-	}
-
 	//log the user in
 	function login()
 	{
@@ -57,13 +27,8 @@ log_message('error','some error');
 		//validate form input
 		$this->form_validation->set_rules('identity', 'Identity', 'required');
 		$this->form_validation->set_rules('password', 'Password', 'required');
-echo $this->input->post('identity');
-echo $this->form_validation->run();
-
 		if ($this->form_validation->run() == true)
 		{
-		    echo $this->input->post('password');
-
 			//check to see if the user is logging in
 			//check for "remember me"
 			$remember = (bool) $this->input->post('remember');
@@ -73,7 +38,7 @@ echo $this->form_validation->run();
 				//if the login is successful
 				//redirect them back to the home page
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
-				redirect('/', 'refresh');
+				redirect($this->config->item('url_user_dashboard'), 'refresh');
 			}
 			else
 			{
@@ -190,7 +155,6 @@ echo $this->form_validation->run();
 		$this->form_validation->set_rules('email', $this->lang->line('forgot_password_validation_email_label'), 'required');
 		if ($this->form_validation->run() == false)
 		{
-			echo "forgot_password";
 			//setup the input
 			$this->data['email'] = array('name' => 'email',
 				'id' => 'email',
@@ -216,9 +180,7 @@ echo $this->form_validation->run();
 
 			//run the forgotten password method to email an activation code to the user
 			$forgotten = $this->ion_auth->forgotten_password($identity->{$this->config->item('identity', 'ion_auth')});
- print_r($forgotten);
-echo  $this->email->print_debugger();
- return;
+
 			if ($forgotten)
 			{
 				//if there were no errors
@@ -742,7 +704,6 @@ $this->ion_auth->login($email, $password);
 			$data = isset($this->data) ? $this->data : array();
 		}
 		$data['lang'] = $this->lang->load('dub',null,TRUE);
-		//print_r($this->lang->load('dub',null,TRUE));
 		$this->load->view('header.html');
 		$view_html = $this->load->view($view, $data, $render);
 		$this->load->view('footer.html');
@@ -753,10 +714,7 @@ function choose()
 {
     $this->_render_page('choose.html');
     #$this->load->view('choose.html');
-    #echo "here";
     //$this->_render_page('signup_actor.html' , $this->data);
-    //print_r($this->lang->line('ages_item'));
-    //print_r($this->lang);
 }
 
 function email()
@@ -778,10 +736,23 @@ if($this->email->send()){
     //$this->_render_page('login-choose.html' , $this->data);
     //var_dump($this->lang->line('ages_item'));
 
-
-
-
 }
+
+
+function is_actor()
+{
+	$actor = $this->get_actor_info($this->ion_auth->get_user_id());
+	return $actor && $actor->num_rows() ;
+	//var_dump($actor);
+	//return ($actor);
+}
+
+function get_actor_info($cuser_id= NULL)
+{
+	if (!$cuser_id) return FALSE;
+	return $this->db->where('user_id',$cuser_id)->get('actor');
+}
+
 
 function actor()
 {
@@ -834,34 +805,38 @@ function project($project_id=0)
 	foreach ($project_rules as $cname => $crule){
 		$this->form_validation->set_rules($cname, $cname, $crule.'|xss_clean');
 	}
-
+	$cuser_id = $this->ion_auth->get_user_id();
 	if (isset($_POST) && !empty($_POST)) $insert_data = $_POST;
 	if ($this->form_validation->run() == TRUE)
 	{
 
 		$insert_data['session_id'] = $this->session->userdata('session_id');
 		list($insert_data['ages'] , $insert_data['gender']) = explode(',',$insert_data['ages_gender']);
+		$insert_data['content_length']=mb_strlen($insert_data['content'],'UTF8');
 
 		$insert_data = $this->ion_auth->_filter_data('project', $insert_data);
-		$where_data['user_id'] = $this->ion_auth->get_user_id();
+
+		$where_data['user_id'] = $cuser_id ? $cuser_id : 0;
+
 		if ($project_id) {
 			$where_data['id'] = $project_id;
 			$this->db->update('project', $insert_data,$where_data);
 		}else{
 			$this->db->insert('project', array_merge($insert_data,$where_data));
+			if (!$cuser_id){
+				$this->session->set_userdata('created_project', 1 );
+			}
 		}
 
 		$this->data['message'] =  'successful';
 
 		if (!$this->ion_auth->logged_in()){
-
 			redirect($this->config->item('url_login'), 'refresh');
 		}else{
 			redirect($this->config->item('url_user_dashboard'), 'refresh');
 		}
 	}else{
-	    $this->data['title'] = "Project";
-		$this->_render_page('project_form.html', $this->data);
+		$this->_render_page('project_form.html');
 		$this->data['message'] =  validation_errors();
 
 	}
@@ -869,7 +844,8 @@ function project($project_id=0)
 
 }
 
-function front()
+
+function index()
 {
 	$this->_render_page('front.html');
 }
@@ -878,21 +854,89 @@ function dashboard()
 {
 	if (!$this->ion_auth->logged_in()){
 		redirect($this->config->item('url_login'), 'refresh');
+	}else if($this->session->userdata('created_project')){
+		$insert_data['user_id'] = $this->ion_auth->get_user_id();
+		$where_data['user_id'] = 0;
+		$where_data['session_id'] = $this->session->userdata('session_id');
+		$this->db->update('project', $insert_data,$where_data);
+	}
+	if(!$this->session->userdata('is_actor')){
+		$this->session->set_userdata('is_actor', $this->is_actor() );
+	}
+	if($this->session->userdata('is_actor')){
+		$this->data['jobs'] = $this->get_jobs();
 	}
 
-	$this->data['projects'] = $projects = $this->db->where('user_id',
+	$this->data['projects'] = $this->db->where('user_id',
 		$this->ion_auth->get_user_id())->get('project')->result();
-	print_r($this->data['projects']);
+
 	$this->_render_page('dashboard_user.html');
 }
 
+
+function get_jobs()
+{
+	return $this->db->where('status',0)->get('project')->result();
+
+}
+
+
+function sample()
+{
+	if (empty($_FILES) || !$_FILES['userfile'] ){
+		$this->data['samples'] = $this->db->where('user_id',$this->ion_auth->get_user_id())->get('sample')->result();
+		$this->_render_page('upload_sample.html');
+		return ;
+	}
+
+	$userfile = $_FILES['userfile'];
+	if (!$userfile['error'] && $userfile['tmp_name']){
+
+	}
+
+	$file_md5 =  md5_file($userfile['tmp_name']);
+
+
+	$config['upload_path'] = './user_upload/';
+	$config['allowed_types'] = 'mp3|jpg';
+	$config['max_size']	= '2048';
+	$config['overwrite']	= TRUE;
+	$config['file_name']	= $file_md5;
+	$this->load->library('upload', $config);
+
+
+	if (! $this->upload->do_upload())
+	{
+		$error = array('error' => $this->upload->display_errors());
+		var_dump($error);
+	}
+	else
+	{
+		$upload_data = $this->upload->data();
+		var_dump($upload_data);
+	if($this->db->where('md5',$file_md5)->get('sample')->num_rows()){
+		echo "file exits";
+		return;
+	}else{
+		$insert_data['title'] = str_replace($upload_data['file_ext'], '', $upload_data['client_name']) ;
+		$insert_data['md5'] = $file_md5;
+		$insert_data['user_id'] = $this->ion_auth->get_user_id();
+		$this->db->insert('sample', $insert_data);
+
+	};
+
+	}
+
+	$this->_render_page('upload_sample.html');
+}
+
+
 function test()
 {
-	print_r($this->session->all_userdata());
-		echo $this->ion_auth->get_user_id();
-		echo "  ion_auth ";
+	var_dump($this->session->all_userdata());
+		echo mb_strlen('content','UTF8');
 		echo 5 || 0;
-	//echo phpinfo();
+	echo phpinfo();
 }
 
 }

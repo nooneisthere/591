@@ -7,9 +7,11 @@
     </dl>
     <ul class="tabs-content">
       <li class="active" id="customerTab">
+				<?php if (empty($projects)):?>
         <div data-alert class="alert-box warning radius">
-          您尚未开通“客户功能”， 如需开通， <a href="#">点这里</a>
+          您还没有创建任何项目，马上<a href="<?=$this->config->item('url_create_project')?>">上传新文案</a>
         </div>
+				<?php endif; ?>
 
         <div class="panel">
           <dl class="sub-nav">
@@ -21,7 +23,7 @@
           </dl>
           <h5>您的项目</h5>
           <dl class="sub-nav">
-            <dd><a href="#"><i class="fa fa-plus-square"></i> 上传新文案</a></dd>
+            <dd><a href="<?=$this->config->item('url_create_project')?>"><i class="fa fa-plus-square"></i> 上传新文案</a></dd>
             <dd>|</dd>
             <dd><a href="#"><i class="fa fa-search"></i> 搜索我们的样音</a></dd>
           </dl>
@@ -43,19 +45,17 @@
                 <td class="text-center"><a href="#" class="button small alert radius"><i class="fa fa-trash-o"></i> 删除</a></td>
               </tr>
 							<?php endforeach;?>
-              <tr>
             </tbody>
           </table>
          </div>
       </li>
 
-
-
-
       <li id="peiyinshiTab" style="display:none;">
+      	<?php if (!$this->session->userdata('is_actor')): ?>
         <div data-alert class="alert-box warning radius">
-          您尚未开通“配音师功能”， 如需开通， <a href="#">点这里</a>
+          您尚未开通“配音师功能”，如需开通，<a href="<?=$this->config->item('url_create_actor')?>">点这里</a>
         </div>
+        <?php else: ?>
          <div class="panel">
           <dl class="sub-nav">
             <dd><a href="#">参与的项目</a></dd>
@@ -80,32 +80,19 @@
               </tr>
             </thead>
             <tbody>
+							<?php foreach ($jobs as $project):?>
               <tr>
-                <td class="text-center"> <span class="label success round">竟配</span></td>
-                <td><a href="#">房地产文案</a></td>
-                <td>236</td>
+                <td class="text-center"> <span class="label alert round"><?=$lang['project_type'][$project->type]?></span></td>
+                <td><a href="#"><?=$project->title?></a></td>
+                <td><?=$project->content_length?></td>
                 <td>试音20元+全稿500元</td>
-                <td class="text-center"><a href="#" class="button small alert radius">关闭</a></td>
+                <td class="text-center"><a href="#" class="button small success radius"><?=$lang['project_status'][$project->status]?></a></td>
               </tr>
-              <tr>
-                <td class="text-center"> <span class="label alert round">竟配</span></td>
-                <td><a href="#">房地产广告</a></td>
-                <td>236</td>
-                <td>试音20元+全稿500元</td>
-                <td class="text-center"><a href="#" class="button small success radius">进行中</a></td>
-              </tr>
-
-              <tr>
+							<?php endforeach;?>
             </tbody>
           </table>
          </div>
-         <div class="row">
-            <div class="twelve text-center">
-              <button type="submit" class="button radius btLarge centered">登入</button>
-              <br/><br/>
-              <a href="#" style="margin-top:10px;margin-left:10px;">忘记密码?</a>
-            </div>
-         </div>
+         <?php endif; ?>
       </li>
     </ul>
  </div>
