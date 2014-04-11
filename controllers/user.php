@@ -922,7 +922,7 @@ function sample()
 		$insert_data['md5'] = $file_md5;
 		$insert_data['user_id'] = $this->ion_auth->get_user_id();
 		$this->db->insert('sample', $insert_data);
-
+        redirect($this->config->item('url_edit_sample').'/'.$this->db->insert_id(), 'refresh');
 	};
 
 	}
@@ -930,6 +930,21 @@ function sample()
 	$this->_render_page('upload_sample.html');
 }
 
+
+
+function edit_sample($id = NULL)
+{
+
+	$where['user_id']=$this->ion_auth->get_user_id();
+	$where['id']=$id;
+	$sample=$this->db->where($where)->get('sample')->row();
+	if($sample){
+		$this->_render_page('sample_form.html');
+	}else if (isset($_POST) && !empty($_POST)){
+		$this->db->update('sample', $insert_data,$where);
+		var_dump($sample);
+	}
+}
 
 function test()
 {

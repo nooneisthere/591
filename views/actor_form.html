@@ -8,7 +8,7 @@
 		<label class='right inline'>您的报价方案 * :
 		</div>
 		<div class='nine columns'>
-		 <textarea style='height:100px;' name="pricing_content"></textarea>		 
+		 <textarea style='height:100px;' name="pricing_content"></textarea>
 		</div>
 		</div>
 		<div class='row'>
@@ -23,7 +23,7 @@
 			 </td>
 			 <td></td>
 		   </tr>
-		
+
 		 	<?php foreach ($lang['ages_item'] as $akey => $atext): ?>
 		 	<?php if ($akey == 1) continue ;?>
 		   <tr>
@@ -54,7 +54,7 @@
 		     	<label><input type='checkbox' name="language2" value="en" /> <?=$lang['lang_item']['en']?> </label>
 		     </td>
 		   <tr>
-		  </table>	  
+		  </table>
 		</div>
 		<div class='nine columns'>
 			<input type="text" name="language_other" placeholder="如果您擅长其他语言或者方言，可在此填入">
@@ -99,9 +99,9 @@ $(document).ready(function() {
 	}
 	$( '#ages_gender input' ).change(function(){
 	    enableGender();
-	});	
-	enableGender();    
-    
-    });        
-	
-</script>            
+	});
+	enableGender();
+
+    });
+
+</script>
