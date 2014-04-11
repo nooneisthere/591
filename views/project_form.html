@@ -22,11 +22,11 @@
            <div class="nine columns">
             <select name="ages_gender" required="required">
             	<option value="">请选择</option>
-							<option  value="1" /><?=$lang['ages_item'][1]?></option>
+							<option  value="1"><?=$lang['ages_item'][1]?></option>
 							<?php foreach ($lang['ages_item'] as $akey => $atext): ?>
 								<?php if ($akey == 1) continue ;?>
 								<?php foreach ($lang['gender_item'] as $gkey => $gtext): ?>
-							<option  value="<?=$akey?>,<?=$gkey?>" /> <?=$atext?> <?=$gtext?> </option>
+							<option  value="<?=$akey?>,<?=$gkey?>"> <?=$atext?> <?=$gtext?> </option>
 								<?php endforeach; ?>
 							<?php endforeach; ?>
             </select>
@@ -41,7 +41,7 @@
               <div class="six columns">
                 <select name="language" required="required">
 							   	<?php foreach ($lang['lang_item'] as $gkey => $gtext): ?>
-							    <option  value="<?=$gkey?>" /> <?=$gtext?> </option>
+							    <option  value="<?=$gkey?>"> <?=$gtext?> </option>
 								<?php endforeach; ?>
                 </select>
               </div>

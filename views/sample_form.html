@@ -1,0 +1,95 @@
+<div class="row formCon">
+ <div class="twelve">
+  <ul class="alertList">
+    <li><i class="fa fa-dot-circle-o"></i> 请勿重复上传配音</li>
+    <li><i class="fa fa-dot-circle-o"></i> 我们的客户很少听配音超过20秒。如果您上传的配音超过20秒，审核通过时将被自动删减。</li>
+    <li><i class="fa fa-dot-circle-o"></i> 请尽量上传不同风格的配音，将他们分类到对应的区域。</li>
+    <li><i class="fa fa-dot-circle-o"></i> 配音的音频格式为MP3，采样率为44.1kHz，比特率在128Kbps以上。</li>
+    <li><i class="fa fa-dot-circle-o"></i> 上传的每个配音大小不得超过2M，总数不能超出30条.</li>
+  </ul>
+  <br/><br/>
+  <div class="panel">
+    <form method="POST">
+    <div class="row">
+      <div class="three columns">
+        <label class="right inline">配音标题 * :</label>
+      </div>
+      <div class="nine columns">
+        <input type="text" required="required" name="title" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="three columns">
+        <label  class="right inline">用途 * :</label>
+      </div>
+      <div class="nine columns">
+        <select name="type" style="width:230px;" required="required">
+          <option>请选择用途</option>
+				<?php foreach ($lang['sample_type'] as $gkey => $gtext): ?>
+          <option value="<?=$gkey?>"><?=$gtext?></option>
+				<?php endforeach; ?>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="three columns">
+        <label  class="right inline">语言 * :</label>
+      </div>
+      <div class="nine columns">
+        <select name="language" style="width:230px;" required="required">
+          <option>请选择语言</option>
+				<?php foreach ($lang['lang_item'] as $gkey => $gtext): ?>
+          <option value="<?=$gkey?>"><?=$gtext?></option>
+				<?php endforeach; ?>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="three columns">
+        <label  class="right inline">性别 * :</label>
+      </div>
+      <div class="nine columns">
+        <select name="gender" style="width:230px;" required="required">
+        	<option>请选择性别</option>
+				<?php foreach ($lang['gender_item'] as $gkey => $gtext): ?>
+          <option value="<?=$gkey?>"><?=$gtext?></option>
+				<?php endforeach; ?>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="three columns">
+        <label  class="right inline">年龄 * :</label>
+      </div>
+      <div class="nine columns">
+        <select name="ages" style="width:230px;" required="required">
+        	<option>请选择年龄</option>
+				<?php foreach ($lang['ages_item'] as $akey => $atext): ?>
+          <option value="<?=$akey?>"><?=$atext?></option>
+				<?php endforeach; ?>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="three columns">
+        <label  class="right inline">情绪 * :</label>
+      </div>
+      <div class="nine columns">
+        <select name="emotion" style="width:230px;" required="required">
+          <option>请选择情绪</option>
+				<?php foreach ($lang['emotion_item'] as $gkey => $gtext): ?>
+          <option value="<?=$gkey?>"><?=$gtext?></option>
+				<?php endforeach; ?>
+        </select>
+      </div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="twelve text-center">
+        <button type="submit" class="button radius btLarge" style="width:350px;">保存</button>
+      </div>
+    </div>
+	</form>
+  </div>
+ </div>
+</div>
