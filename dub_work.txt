@@ -1,0 +1,3 @@
+﻿ mysql -uroot -p123456 dub;
+ select id,title,gender,ages,language,LEFT(REPLACE(content,"\n"," ; "),100),LEFT(REPLACE(remarks,"\n"," ; "),100),need_music,type,actor_count,status,user_id,price,session_id from project;
+alter table users add
