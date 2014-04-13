@@ -24,7 +24,7 @@
       </div>
       <div class="nine columns">
         <select name="type" style="width:230px;" required="required">
-          <option>请选择用途</option>
+          <option value="">请选择用途</option>
 				<?php foreach ($lang['sample_type'] as $gkey => $gtext): ?>
           <option value="<?=$gkey?>"><?=$gtext?></option>
 				<?php endforeach; ?>
@@ -37,7 +37,7 @@
       </div>
       <div class="nine columns">
         <select name="language" style="width:230px;" required="required">
-          <option>请选择语言</option>
+          <option value="">请选择语言</option>
 				<?php foreach ($lang['lang_item'] as $gkey => $gtext): ?>
           <option value="<?=$gkey?>"><?=$gtext?></option>
 				<?php endforeach; ?>
@@ -50,7 +50,7 @@
       </div>
       <div class="nine columns">
         <select name="gender" style="width:230px;" required="required">
-        	<option>请选择性别</option>
+        	<option value="">请选择性别</option>
 				<?php foreach ($lang['gender_item'] as $gkey => $gtext): ?>
           <option value="<?=$gkey?>"><?=$gtext?></option>
 				<?php endforeach; ?>
@@ -63,7 +63,7 @@
       </div>
       <div class="nine columns">
         <select name="ages" style="width:230px;" required="required">
-        	<option>请选择年龄</option>
+        	<option value="">请选择年龄</option>
 				<?php foreach ($lang['ages_item'] as $akey => $atext): ?>
           <option value="<?=$akey?>"><?=$atext?></option>
 				<?php endforeach; ?>
@@ -76,7 +76,7 @@
       </div>
       <div class="nine columns">
         <select name="emotion" style="width:230px;" required="required">
-          <option>请选择情绪</option>
+          <option value="">请选择情绪</option>
 				<?php foreach ($lang['emotion_item'] as $gkey => $gtext): ?>
           <option value="<?=$gkey?>"><?=$gtext?></option>
 				<?php endforeach; ?>
